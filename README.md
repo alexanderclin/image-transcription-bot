@@ -6,11 +6,12 @@ A bot for Reddit that attempts to transcribe image submissions by converting the
 
 First, set up a virtualenv:
 ```
-$ virtualenv -p python3 img_transcriber
+$ virtualenv -p python3 img_transcriber_bot
 ```
 
 Clone the repository:
 ```
+$ cd img_transcriber_bot
 $ git clone https://github.com/alexanderclin/image-transcription-bot.git
 ```
 
