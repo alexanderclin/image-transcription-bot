@@ -19,3 +19,15 @@ Install requirements:
 $ source img_transcriber/bin/activate
 $ pip install -r requirements.txt
 ```
+
+# Usage
+
+Create a file `img_transcriber/config.py` which contains the following, and change variables accordingly:
+```python
+username      = YOUR_USERNAME
+password      = YOUR_PASSWORD
+client_id     = YOUR_CLIENT_ID
+client_secret = YOUR_CLIENT_SECRET
+
+subreddit_name = YOUR_SUBREDDIT
+```
