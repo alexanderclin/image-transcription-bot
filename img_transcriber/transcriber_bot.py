@@ -12,7 +12,7 @@ def bot_login():
 					   user_agent    = "Image Transcription Bot v0.1")
 
 def run_bot(r):
-	subreddit = r.subreddit('TheBlank0Test')
+	subreddit = r.subreddit(config.subreddit_name)
 
 	for submission in subreddit.stream.submissions():
 
