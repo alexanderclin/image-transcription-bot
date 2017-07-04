@@ -2,7 +2,7 @@
 
 A bot for Reddit that attempts to transcribe image submissions by converting them to text using OCR.
 
-# Installation
+## Installation
 
 First, set up a virtualenv:
 ```
@@ -20,7 +20,7 @@ $ source img_transcriber/bin/activate
 $ pip install -r requirements.txt
 ```
 
-# Usage
+## Usage
 
 Create a file `img_transcriber/config.py` which contains the following, and change variables accordingly:
 ```python
