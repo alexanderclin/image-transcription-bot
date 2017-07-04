@@ -1,0 +1,11 @@
+certifi==2017.4.17
+chardet==3.0.4
+idna==2.5
+olefile==0.44
+Pillow==4.2.0
+praw==4.5.1
+prawcore==0.10.1
+pytesseract==0.1.7
+requests==2.18.1
+update-checker==0.16
+urllib3==1.21.1

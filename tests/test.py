@@ -1,0 +1,2 @@
+from img_transcriber.image_transcriber import ImageTranscriber
+
