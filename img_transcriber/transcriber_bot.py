@@ -28,12 +28,12 @@ def run_bot(r):
 				continue
 
 			print("Found image: {}".format(submission.url))
-			
+
 			imgt = ImageTranscriber(submission.url)
-			reply_comment = reply_with_text(imgt.text)
-			# Don't reply if no text found
-			if reply_comment and not reply_comment.isspace():
+			# Only reply if text found
+			if imgt.text and imgt.text.strip():
 				print(imgt.text)
+				reply_comment = reply_with_text(imgt.text)
 				submission.reply(reply_comment)
 
 def reply_with_text(text):
