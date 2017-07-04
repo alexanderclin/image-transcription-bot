@@ -9,7 +9,7 @@ First, set up a virtualenv:
 $ virtualenv -p python3 img_transcriber
 ```
 
-Then clone the repository:
+Clone the repository:
 ```
 $ git clone https://github.com/alexanderclin/image-transcription-bot.git
 ```
