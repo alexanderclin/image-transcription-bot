@@ -27,11 +27,14 @@ def run_bot(r):
 				print("Found {} in comments, skipping".format(config.username))
 				continue
 
-			imgt = ImageTranscriber(submission.url)
 			print("Found image: {}".format(submission.url))
-			print(imgt.text)
-			print()
-			submission.reply(reply_with_text(imgt.text))
+			
+			imgt = ImageTranscriber(submission.url)
+			reply_comment = reply_with_text(imgt.text)
+			# Don't reply if no text found
+			if reply_comment and not reply_comment.isspace():
+				print(imgt.text)
+				submission.reply(reply_comment)
 
 def reply_with_text(text):
 	quoted_text = text.replace("\n", "\n\n>")
