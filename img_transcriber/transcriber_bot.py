@@ -1,6 +1,5 @@
 import praw
 import config
-from requests import head
 from image_transcriber import ImageTranscriber
 
 def bot_login():
@@ -15,26 +14,26 @@ def run_bot(r):
 	subreddit = r.subreddit(config.subreddit_name)
 
 	for submission in subreddit.stream.submissions():
+		print()
+		print("Found submission: {}".format(submission.title))
+		print("  Submission url: {}".format(submission.url))
 
-		response = head(submission.url)
-		content_type = response.headers.get('content-type')
-
-		# Found an image
-		if "image" in str(content_type):
+		try:
+			imgt = ImageTranscriber(submission.url)
 			usernames = [comment.author for comment in submission.comments.list()]
+
 			# Don't reply if already replied
 			if r.user.me() in usernames:
-				print("Found {} in comments, skipping".format(config.username))
+				print("  Found {} in comments, skipping".format(config.username))
 				continue
 
-			print("Found image: {}".format(submission.url))
-
-			imgt = ImageTranscriber(submission.url)
 			# Only reply if text found
 			if imgt.text and imgt.text.strip():
 				print(imgt.text)
 				reply_comment = reply_with_text(imgt.text)
 				submission.reply(reply_comment)
+		except:
+			print("  Could not transcribe")
 
 def reply_with_text(text):
 	quoted_text = text.replace("\n", "\n\n>")
