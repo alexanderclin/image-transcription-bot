@@ -31,3 +31,8 @@ client_secret = YOUR_CLIENT_SECRET
 
 subreddit_name = YOUR_SUBREDDIT
 ```
+
+To run the bot, simply run `transcriber_bot.py`:
+```
+$ python img_transcriber/transcriber_bot.py
+```
