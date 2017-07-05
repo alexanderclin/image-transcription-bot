@@ -2,13 +2,6 @@ import praw
 import config
 from image_transcriber import ImageTranscriber
 
-def main():
-	r = bot_login()
-	run_bot(r)
-
-if __name__ == '__main__':
-	main()
-
 def bot_login():
 	print("Logging in")
 	return praw.Reddit(username      = config.username,
@@ -50,3 +43,10 @@ def reply_with_text(text):
 	reply_text = "Attempted transcription:\n>{}".format(quoted_text)
 	reply_text += "    \n    \n*****\n" + "I am a bot!"
 	return reply_text
+
+def main():
+	r = bot_login()
+	run_bot(r)
+
+if __name__ == '__main__':
+	main()
