@@ -1,14 +1,17 @@
 import praw
 import config
-from image_transcriber import ImageTranscriber
+from image_transcriber import ImageTranscriberWithExisting
+from image_cropper import ImageCropper
 
 def bot_login():
 	print("Logging in")
-	return praw.Reddit(username      = config.username,
-					   password      = config.password,
-					   client_id 	 = config.client_id,
-					   client_secret = config.client_secret,
-					   user_agent    = "Image Transcription Bot v0.1")
+	login_info = praw.Reddit(username      = config.username,
+						     password      = config.password,
+						     client_id 	   = config.client_id,
+						     client_secret = config.client_secret,
+						     user_agent    = "Image Transcription Bot v0.1")
+	print("Logged in with {}".format(login_info.user.me()))
+	return login_info
 
 def run_bot(r):
 	subreddit = r.subreddit(config.subreddit_name)
@@ -19,24 +22,28 @@ def run_bot(r):
 def process_submission(r, submission):
 	print()
 	print("Found submission: {}".format(submission.title))
-	print("  Submission url: {}".format(submission.url))
+	print("> Submission url: {}".format(submission.url))
 
 	try:
-		imgt = ImageTranscriber(submission.url)
+		imgcropper = ImageCropper(submission.url)
+		imgt = ImageTranscriberWithExisting(imgcropper.simple_img)
 		usernames = [comment.author for comment in submission.comments.list()]
 
 		# Don't reply if already replied
 		if r.user.me() in usernames:
-			print("  Already commented, skipping".format(config.username))
+			print("> Already commented, skipping".format(config.username))
 			return
 
 		# Only reply if text found
-		if imgt.text and imgt.text.strip():
+		if imgt.text is not None and imgt.text.strip():
+			print("> Found text")
 			print(imgt.text)
 			reply_comment = reply_with_text(imgt.text)
 			submission.reply(reply_comment)
-	except:
-		print("  Could not transcribe, skipping")
+	except Exception as ex:
+		template = "! An exception of type {0} occurred. Arguments:\n{1!r}"
+		message = template.format(type(ex).__name__, ex.args)
+		print(message)
 
 def reply_with_text(text):
 	quoted_text = text.replace("\n", "\n\n>")

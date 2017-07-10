@@ -9,7 +9,7 @@ class ImageTranscriber:
     """
     Used to transcribe an image to text.
     """
-    
+
     def __init__(self, img_url):
         self.img_url = img_url
         self.text = self.__convert_image(img_url)
@@ -21,3 +21,15 @@ class ImageTranscriber:
         response = get(img_url)
         img_from_url = Image.open(BytesIO(response.content))
         return image_to_string(img_from_url)
+
+class ImageTranscriberWithExisting:
+    """
+    Transcribe image that already exists as a PIL Image
+    """
+
+    def __init__(self, img):
+        self.img = img
+        self.text = self.__convert_image(img)
+
+    def __convert_image(self, img):
+        return image_to_string(img)
